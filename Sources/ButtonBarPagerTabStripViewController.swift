@@ -257,20 +257,23 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     private func cellForItems(at indexPaths: [IndexPath], reloadIfNotVisible reload: Bool = true) -> [ButtonBarViewCell?] {
         let cells = indexPaths.map { buttonBarView.cellForItem(at: $0) as? ButtonBarViewCell }
 
-        if reload {
-            let indexPathsToReload = cells.enumerated()
-                .compactMap { (arg) -> IndexPath? in
-                    let (index, cell) = arg
-                    return cell == nil ? indexPaths[index] : nil
-                }
-                .compactMap { (indexPath: IndexPath) -> IndexPath? in
-                    return (indexPath.item >= 0 && indexPath.item < buttonBarView.numberOfItems(inSection: indexPath.section)) ? indexPath : nil
-                }
-
-            if !indexPathsToReload.isEmpty {
-                buttonBarView.reloadItems(at: indexPathsToReload)
-            }
-        }
+// Disabled due to crashes when changing orientation
+        
+//        if reload {
+//            let indexPathsToReload = cells.enumerated()
+//                .compactMap { (arg) -> IndexPath? in
+//                    let (index, cell) = arg
+//                    return cell == nil ? indexPaths[index] : nil
+//                }
+//                .compactMap { (indexPath: IndexPath) -> IndexPath? in
+//                    return (indexPath.item >= 0 && indexPath.item < buttonBarView.numberOfItems(inSection: indexPath.section)) ? indexPath : nil
+//                }
+//
+//
+//            if !indexPathsToReload.isEmpty {
+//                buttonBarView.reloadItems(at: indexPathsToReload)
+//            }
+//        }
 
         return cells
     }
