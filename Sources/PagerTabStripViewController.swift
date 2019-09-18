@@ -156,10 +156,26 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         guard view.window != nil else {
-            let step = (currentIndex < index) ? 1 : -1
-            for subindex in stride(from: currentIndex+step, through: index, by: step) {
-                containerView.setContentOffset(CGPoint(x: pageOffsetForChild(at: subindex), y: 0), animated: false)
+            if index == 1 {
+                for subindex in stride(from: 2, through: 1, by: -1) {
+                    let pageOffset = pageOffsetForChild(at: subindex)
+                    let contentOffset = CGPoint(x:pageOffset , y: 0)
+                    print("--- SubIndex Acquired : \(subindex)")
+                    print("--- PageOffset Acquired : \(pageOffset)")
+                    containerView.setContentOffset(contentOffset, animated: false)
+                }
+            }else{
+                let step = (currentIndex < index) ? 1 : -1
+                
+                for subindex in stride(from: currentIndex+step, through: index, by: step) {
+                    let pageOffset = pageOffsetForChild(at: subindex)
+                    let contentOffset = CGPoint(x:pageOffset , y: 0)
+                    print("--- SubIndex Acquired : \(subindex)")
+                    print("--- PageOffset Acquired : \(pageOffset)")
+                    containerView.setContentOffset(contentOffset, animated: false)
+                }
             }
+            
             return
         }
     }
